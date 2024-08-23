@@ -52,7 +52,7 @@ export const ensureSubscribed = async (
         email: user.email,
       },
       data: {
-        subscribed: true, //Change this to is subscribed
+        subscribed: isSubscribed, //Change this to is subscribed
       },
     })
     // Proceed to the next middleware or route handler
