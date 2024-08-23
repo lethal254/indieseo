@@ -22,6 +22,8 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || ""
 
+app.set("trust proxy", 1) // Trust the first proxy
+
 app.use(express.json())
 app.use(morgan("tiny"))
 app.use(
