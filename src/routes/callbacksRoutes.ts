@@ -66,8 +66,11 @@ router.get("/payment_callback", async (req, res) => {
     }
 
     // Log and redirect
-    console.log("Redirection URL:", "http://localhost:3000/dashboard")
-    res.redirect(303, "http://localhost:3000/dashboard")
+    console.log(
+      "Redirection URL:",
+      "https://indieseo-frontend.vercel.app/dashboard"
+    )
+    res.redirect(303, "https://indieseo-frontend.vercel.app/dashboard")
   } catch (error: any) {
     console.error(error.response ? error.response.data : error.message)
     res

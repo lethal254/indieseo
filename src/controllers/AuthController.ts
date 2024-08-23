@@ -20,7 +20,7 @@ class AuthController {
           if (err) {
             return res.redirect("/")
           }
-          res.redirect("http://localhost:3000/dashboard")
+          res.redirect("https://indieseo-frontend.vercel.app/dashboard")
         })
       })(req, res, next)
     }
