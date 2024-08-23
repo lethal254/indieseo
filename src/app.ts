@@ -26,7 +26,7 @@ app.use(express.json())
 app.use(morgan("tiny"))
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://indieseo-frontend.vercel.app",
     credentials: true,
   })
 )
