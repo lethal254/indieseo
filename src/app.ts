@@ -36,6 +36,11 @@ app.use(
     secret: process.env.SESSION_SECRET || "defaultSecret", // Provide a default value
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure: true, // Ensure cookies are only sent over HTTPS
+      httpOnly: true,
+      sameSite: "none", // Required for cross-site cookies
+    },
   })
 )
 
