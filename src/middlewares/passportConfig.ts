@@ -10,7 +10,7 @@ passport.use(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "https://indieseo.onrender.com/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
       const user = await prisma.user.upsert({
