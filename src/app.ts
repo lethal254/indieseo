@@ -22,27 +22,44 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT || ""
 
-app.set("trust proxy", 1) // Trust the first proxy
+app.set("trust proxy", 1)
+app.enable("trust proxy")
 
 app.use(express.json())
 app.use(morgan("tiny"))
+const allowedOrigins = [
+  "https://indieseo-frontend.vercel.app",
+  "http://localhost:3000",
+]
+
 app.use(
   cors({
-    origin: "https://indieseo-frontend.vercel.app",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true)
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var msg =
+          "The CORS policy for this site does not allow access from the specified Origin."
+        return callback(new Error(msg), false)
+      }
+      return callback(null, true)
+    },
     credentials: true,
   })
 )
 app.use(express.urlencoded({ extended: true }))
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "defaultSecret", // Provide a default value
+    secret: process.env.SESSION_SECRET || "defaultSecret",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-      secure: true, // Ensure cookies are only sent over HTTPS
+      secure: process.env.NODE_ENV === "production", // Only use secure in production
       httpOnly: true,
       sameSite: "none", // Required for cross-site cookies
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
+    proxy: true, // trust the reverse proxy
   })
 )
 
